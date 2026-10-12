@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Deteksi Dini Longsor, Banjir & Gempa - Live Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1b4965;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #62b6cb;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        /* LIVE DASHBOARD STYLES */
+        .live-dashboard {
+            background: linear-gradient(135deg, #1b4965, #2b2d42);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+        }
+
+        .dashboard-header h2 {
+            font-size: 18px;
+            color: #62b6cb;
+        }
+
+        .status-badge {
+            background-color: #2a9d8f;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 4px solid #e63946;
+        }
+
+        .metric-card.safe {
+            border-left-color: #2a9d8f;
+        }
+
+        .metric-title {
+            font-size: 12px;
+            color: #adb5bd;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .metric-status {
+            font-size: 11px;
+            margin-top: 3px;
+            color: #ffd166;
+        }
+
+        /* FLOW COMPONENT STYLES */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #1b4965;
+            margin-bottom: 15px;
+            border-left: 4px solid #1b4965;
+            padding-left: 10px;
+        }
+
+        .component-card {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            border-left: 6px solid #62b6cb;
+            padding: 12px 18px;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .component-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border-left-color: #1b4965;
+        }
+
+        .number-badge {
+            background-color: #1b4965;
+            color: #ffffff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .details h3 {
+            color: #2b2d42;
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .details p {
+            color: #555555;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            border-left-color: #e63946;
+        }
+
+        .highlight .number-badge {
+            background-color: #e63946;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Sistem Deteksi Dini Longsor, Banjir & Gempa</h1>
+    <p class="subtitle">Arsitektur Komunikasi IoT & Satelit Transmisi</p>
+
+    <!-- LIVE IOT DASHBOARD & SATELIT TRANSMISI PANEL (DENGAN SENSOR GEMPA) -->
+    <div class="live-dashboard">
+        <div class="dashboard-header">
+            <h2>Live IoT Dashboard & Satelit Transmisi</h2>
+            <div class="status-badge">● LIVE TRANSMISSION</div>
+        </div>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">Sensor Tanah (Longsor)</div>
+                <div class="metric-value">42 mm/s</div>
+                <div class="metric-status">⚠ Pergerakan Waspada</div>
+            </div>
+            <div class="metric-card safe">
+                <div class="metric-title">Sensor Air (Banjir)</div>
+                <div class="metric-value">1.2 Meter</div>
+                <div class="metric-status">✔ Status Normal Aman</div>
+            </div>
+            <div class="metric-card safe">
+                <div class="metric-title">Sensor Gempa (Seismik)</div>
+                <div class="metric-value">0.02 Magnitude</div>
+                <div class="metric-status">✔ Getaran Minor / Aman</div>
+            </div>
+            <div class="metric-card safe">
+                <div class="metric-title">Jalur LoRa & Satelit</div>
+                <div class="metric-value">Connected</div>
+                <div class="metric-status">🛰 Uplink 98% Stable</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARSITEKTUR KOMPONEN -->
+    <div class="section-title">Alur Komponen & Fungsi Sistem</div>
+    <div class="flow-container">
+        
+        <!-- 1. Sensor -->
+        <div class="component-card">
+            <div class="number-badge">1</div>
+            <div class="details">
+                <h3>Multi-Sensor (Tanah, Air & Gempa)</h3>
+                <p>Mengambil data fisik lingkungan secara <i>real-time</i> meliputi pergerakan/kelembapan tanah (longsor), ketinggian air (banjir), serta getaran seismik (gempa bumi).</p>
+            </div>
+        </div>
+
+        <!-- 2. Mikrokontroler -->
+        <div class="component-card">
+            <div class="number-badge">2</div>
+            <div class="details">
+                <h3>Mikrokontroler (Arduino)</h3>
+                <p>Membaca sinyal mentah dari ketiga sensor, mengolahnya menjadi data digital terstruktur, dan menyiapkannya untuk dikirimkan.</p>
+            </div>
+        </div>
+
+        <!-- 3. LoRa -->
+        <div class="component-card">
+            <div class="number-badge">3</div>
+            <div class="details">
+                <h3>Modul LoRa (Long Range)</h3>
+                <p>Mengirimkan data dari lokasi sensor di alam terpencil menuju pos pemantau dengan daya rendah dan jangkauan jarak jauh.</p>
+            </div>
+        </div>
+
+        <!-- 4. Gateway -->
+        <div class="component-card">
+            <div class="number-badge">4</div>
+            <div class="details">
+                <h3>Gateway</h3>
+                <p>Menerima sinyal gelombang radio LoRa dari lapangan dan menerjemahkannya agar siap disalurkan ke sistem jaringan penerusan.</p>
+            </div>
+        </div>
+
+        <!-- 5. Parabola -->
+        <div class="component-card highlight">
+            <div class="number-badge">5</div>
+            <div class="details">
+                <h3>Parabola (Stasiun Pemancar)</h3>
+                <p>Memancarkan gelombang sinyal data berfrekuensi tinggi secara nirkabel menembus atmosfer menuju satelit dari daerah terpencil.</p>
+            </div>
+        </div>
+
+        <!-- 6. Satelit -->
+        <div class="component-card highlight">
+            <div class="number-badge">6</div>
+            <div class="details">
+                <h3>Satelit Komunikasi</h3>
+                <p>Menerima pancaran sinyal dari parabola di bumi dan memantulkannya kembali ke stasiun penerima jaringan global secara instan.</p>
+            </div>
+        </div>
+
+        <!-- 7. Internet Cloud -->
+        <div class="component-card">
+            <div class="number-badge">7</div>
+            <div class="details">
+                <h3>Internet Cloud</h3>
+                <p>Menyediakan jalur penghubung berbasis jaringan global untuk mentransfer paket data dari stasiun bumi menuju server utama.</p>
+            </div>
+        </div>
+
+        <!-- 8. Server -->
+        <div class="component-card">
+            <div class="number-badge">8</div>
+            <div class="details">
+                <h3>Server</h3>
+                <p>Menyimpan, mengelola, dan memproses database data masuk serta menjalankan logika peringatan otomatis jika kondisi bahaya.</p>
+            </div>
+        </div>
+
+        <!-- 9. Aplikasi Web -->
+        <div class="component-card">
+            <div class="number-badge">9</div>
+            <div class="details">
+                <h3>Aplikasi Web</h3>
+                <p>Menampilkan antarmuka visual berupa dashboard, grafik tren, peta lokasi, dan status siaga bencana kepada publik.</p>
+            </div>
+        </div>
+
+        <!-- 10. Pengguna -->
+        <div class="component-card">
+            <div class="number-badge">10</div>
+            <div class="details">
+                <h3>Pengguna (User)</h3>
+                <p>Memantau informasi kebencanaan secara <i>real-time</i> via web/HP dan menerima peringatan dini untuk tindakan evakuasi.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
